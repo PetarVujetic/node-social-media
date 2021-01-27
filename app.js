@@ -13,7 +13,7 @@ app.set('view engine', 'handlebars');
 
 //Routes
 app.get('/', function (req, res) {
-  res.send("HI")
+  res.render('home')
 });
 
 app.listen(PORT, () => {
