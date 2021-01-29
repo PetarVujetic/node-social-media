@@ -1,9 +1,11 @@
 let express = require('express');
 let exphbs = require('express-handlebars');
 let dotenv = require("dotenv")
+let AuthController = require('./auth/AuthController');
+let UserController = require('./user/UserController');
+let db = require('./db');
 
 //Config and variable setup
-dotenv.config({ path: './config/.env' })
 PORT = process.env.PORT || 3000;
 let app = express();
 
@@ -12,10 +14,10 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 //Routes
-app.get('/', function (req, res) {
-  res.render('home')
-});
+app.use('/auth', AuthController);
+app.use('/users', UserController);
 
-app.listen(PORT, () => {
-  console.log(`The server is running on PORT:${PORT}`);
-});
+
+
+
+module.exports = app;
