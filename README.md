@@ -6,8 +6,8 @@ It uses a mongodb database connected in the clouds.
 The authentication is implemented with a JSON Web Token (jwt).
 
  # Routes:
-'/auth' - AuthController
-'/users' - UserController
+### '/auth' AuthController
+### '/users' UserController
  
 **/auth/register - POST** 
 req.body expects:
