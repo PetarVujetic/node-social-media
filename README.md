@@ -7,7 +7,6 @@ The authentication is implemented with a JSON Web Token (jwt).
 
  # Routes:
 ### '/auth' AuthController
-### '/users' UserController
  
 **/auth/register - POST** 
 req.body expects:
@@ -28,6 +27,9 @@ req.body expects:
  
 **/auth/logout - GET**
 - Destroys a token stored in the cookie
+ 
+ 
+ ### '/users' UserController
  
 **/users/:id - GET**
 req.params Expects:
