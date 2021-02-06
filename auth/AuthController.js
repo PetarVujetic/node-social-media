@@ -32,7 +32,7 @@ router.post('/register', async function (req, res) {
       to: user.email, // list of receivers
       subject: "Hello ✔", // Subject line
       text: `Activation link: http://localhost:8000/auth/${user.activationCode}`, // plain text body
-      html: `<b>Activation link: <a>http://localhost:8000/auth/${user.activationCode}</a></b>`, // html body
+      html: `<b>Hello there! Activate your account here: <a href="http://localhost:8000/auth/${user.activationCode}">Activation link</a></b> (For postman hackers: http://localhost:8000/auth/${user.activationCode})`, // html body
     });
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
@@ -99,7 +99,7 @@ router.get('/:activationCode', VerifyToken, function (req, res) {
   User.findById(req.userId,
     async function (err, user) {
       if (err) return res.status(500).send("There was a problem finding the user.");
-      if (!user) return res.status(404).send("No user found.");
+      if (!user) return res.status(404).send("No user found or a user is not logged in.");
 
       user.activated = true
       await user.save()
