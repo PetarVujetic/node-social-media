@@ -3,10 +3,10 @@ Basic social-media site made with node.js framework.
 It uses a mongodb database connected in the clouds.  
 The authentication is implemented with a JSON Web Token (jwt).  
 
-**Before you start**
+**Before you start**  
 Read the important commands and contact project leader for a .env file, without it you will not be able to use the cloud mongodb or a jwt.  
 
-**Important commands**
+**Important commands**  
 Before you run the project use the command to install node_modules: __npm install__  
 To run the project on dev use the command: __npm run dev__   
 Command for deployment: __npm start__  
