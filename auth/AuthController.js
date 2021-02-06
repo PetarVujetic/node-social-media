@@ -11,32 +11,9 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 let cookieParser = require('cookie-parser')
 router.use(cookieParser())
-const nodemailer = require("nodemailer");
+let sendActivationMail = require('./SendActivationMail')
 
 router.post('/register', async function (req, res) {
-
-  async function main(user) {
-    let transporter = nodemailer.createTransport({
-      host: "smtp-relay.sendinblue.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "97petar@live.com",
-        pass: "rYbNfGh1JKsWtZE4",
-      },
-    });
-
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Vujo Hacker 👻" <97petar@live.com>', // sender address
-      to: user.email, // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: `Activation link: http://localhost:8000/auth/${user.activationCode}`, // plain text body
-      html: `<b>Hello there! Activate your account here: <a href="http://localhost:8000/auth/${user.activationCode}">Activation link</a></b> (For postman hackers: http://localhost:8000/auth/${user.activationCode})`, // html body
-    });
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  }
 
   if (req.body.password != req.body.password2) return res.status(401).send("Passwords didn't match!")
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -52,7 +29,7 @@ router.post('/register', async function (req, res) {
       let activationCode = crypto.createHash("sha256").update(JSON.stringify(user._id)).digest("hex");
       user.activationCode = activationCode
       await user.save()
-      main(user).catch(console.error);
+      sendActivationMail(user).catch(console.error);
       res.send(user)
     });
 });
@@ -96,11 +73,12 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/:activationCode', VerifyToken, function (req, res) {
+
   User.findById(req.userId,
     async function (err, user) {
       if (err) return res.status(500).send("There was a problem finding the user.");
-      if (!user) return res.status(404).send("No user found or a user is not logged in.");
-
+      if (!user) return res.status(404).send("User is not logged in.");
+      if (user.activated) res.send('User is already activated!')
       user.activated = true
       await user.save()
       res.status(200).send("User successfully activated!");
