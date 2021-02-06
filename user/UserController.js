@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let bodyParser = require('body-parser');
-let UserStatus = require('./UserStatus');
+let UserPost = require('./UserPost');
 let VerifyToken = require('../auth/VerifyToken')
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -34,14 +34,14 @@ router.put('/:id', function (req, res) {
   });
 });
 
-router.post('/create-status', VerifyToken, function (req, res) {
-  UserStatus.create({
+router.post('/create-post', VerifyToken, function (req, res) {
+  UserPost.create({
     user: req.userId,
     text: req.body.text
   },
-    function (err, userstatus) {
+    function (err, userpost) {
       if (err) return res.status(500).send("There was a problem adding the information to the database.");
-      res.status(200).send(userstatus);
+      res.status(200).send(userpost);
     });
 });
 

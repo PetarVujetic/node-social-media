@@ -10,12 +10,40 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 let cookieParser = require('cookie-parser')
 router.use(cookieParser())
+const nodemailer = require("nodemailer");
 
 router.post('/register', async function (req, res) {
+
+
+
+  async function main(user) {
+    let transporter = nodemailer.createTransport({
+
+      host: "smtp-relay.sendinblue.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "97petar@live.com",
+        pass: "rYbNfGh1JKsWtZE4",
+      },
+    });
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Vujo Hacker 👻" <97petar@live.com>', // sender address
+      to: user.email, // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>Hello world?</b>", // html body
+    });
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  }
+
+  // ENDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
   if (req.body.password != req.body.password2) return res.status(401).send("Passwords didn't match!")
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
-  let matchedEmail = await User.findOne({ email: req.body.email })
-  if (matchedEmail) return res.status(401).send("Email is already registered to an account!")
+  // let matchedEmail = await User.findOne({ email: req.body.email })
+  // if (matchedEmail) return res.status(401).send("Email is already registered to an account!")
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -23,6 +51,7 @@ router.post('/register', async function (req, res) {
   },
     function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")
+      main(user).catch(console.error);
       res.send(user)
     });
 });

@@ -15,6 +15,11 @@ let UserSchema = new mongoose.Schema({
     type: String
     , required: true
   },
+  image: { type: String, default: 'default.png' },
+  description: { type: String, default: "" },
+  posts: Array,
+  followers: Array,
+  following: Array
 });
 mongoose.model('User', UserSchema);
 
