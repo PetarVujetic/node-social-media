@@ -1,12 +1,12 @@
 # node-social-media
-Basic social-media site made with node.js framework. 
+Basic social-media site made with node.js framework.  
 It uses a mongodb database connected in the clouds.  
 The authentication is implemented with a JSON Web Token (jwt).  
 
  # Routes:
 ### '/auth' AuthController
  
-**/auth/register - POST** 
+**/auth/register - POST**  
 req.body expects:
 - name
 - email (checked if already registered)
