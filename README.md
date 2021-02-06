@@ -53,3 +53,27 @@ _Updates a selected user_
 req.body Expects:
 - text  
 _Creates a post for a logged in user_
+
+# Models
+- User  
+- UserPost  
+  
+**User**
+Model fields:  
+- name (required)
+- email (required)
+- password (required)
+- activated (default: false)
+- activationCode (generated after registration)
+- image (not required (default: 'default.png'))
+- description (not required)
+- posts (array of post model objects) 
+- followers (array of ObjectIds of a user model objects) _list of followers_
+- following (array of ObjectIds of a user model objects) _list of followees_  
+
+**UserPost**
+Model fields:  
+- text (not required, string)
+- image (not required, string)
+- user (not required, string)
+- date (current Date)

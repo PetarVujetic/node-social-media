@@ -15,7 +15,7 @@ let UserSchema = new mongoose.Schema({
     type: String
     , required: true
   },
-  activated: Boolean,
+  activated: { Boolean, default: false },
   activationCode: String,
   image: { type: String, default: 'default.png' },
   description: { type: String, default: "" },

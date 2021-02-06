@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let UserPostSchema = new mongoose.Schema({
-  description: String,
+  text: String,
   image: String,
   user: String,
   date: Date
