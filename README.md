@@ -16,43 +16,42 @@ req.body expects:
 - description (not required) 
 - password (passwords must match)
 - password2
-Registeres a user
-Upon registration a unique registrationCode is created and sent to the registered email. When the linked route is accessed by a logged in user, user.activated is set to "true" which should make an account active. 
+__Registeres a user. Upon registration a unique registrationCode is created and sent to the registered email. When the linked route is accessed by a logged in user, user.activated is set to "true" which should make an account active.__
  
 **/auth/login - POST**
 req.body expects:
 - email
 - password
-Logging in a user
+__Logging in a user__
  
 **/auth/logout - GET**
-Destroys a token stored in the cookie
+__Destroys a token stored in the cookie__
 
 **/auth/me - GET**
-Returns a logged in user
+__Returns a logged in user__
 
  
  **auth/:activationCode - GET**
- Sets the user.activated to True (link for activation is sent to the registered email)
+ __Sets the user.activated to True (link for activation is sent to the registered email)__
  
  ### '/users' UserController
  
 **/users/:id - GET**
 req.params Expects:
 - id (link to a selected user)
-Returns a selected user
+__Returns a selected user__
  
 **/users/:id - DELETE**
 req.params Expects:
 - id (link to a selected user)
-Deletes a selected user
+__Deletes a selected user__
  
 **/users/:id - PUT**
 req.params Expects:
 - id (link to a selected user)
-Updates a selected user
+__Updates a selected user__
  
 **/users/create-status - POST**
 req.body Expects:
 - text
-Creates a post for a logged in user
+__Creates a post for a logged in user__
