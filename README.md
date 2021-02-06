@@ -14,8 +14,8 @@ Command for deployment: __npm start__
  # Routes:
  __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
 
- ###<div style="text-align:center">'/auth' AuthController </div> 
- 
+ ### '/auth'AuthController 
+ <hr>
 **/auth/register - POST**  
 req.body expects:
 - name
@@ -42,7 +42,7 @@ _Returns a logged in user object_
  _Sets the user.activated to True (link for activation is sent to the registered email)_  
  
  ### '/users' UserController
- 
+ <hr>
 **/users/:id - GET**  
 req.params Expects:
 - id (link to a selected user)  
