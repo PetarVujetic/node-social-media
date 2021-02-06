@@ -16,7 +16,7 @@ req.body expects:
 - description (not required) 
 - password (passwords must match)
 - password2
-__Registeres a user. Upon registration a unique registrationCode is created and sent to the registered email. When the linked route is accessed by a logged in user, user.activated is set to "true" which should make an account active.__
+_Registeres a user. Upon registration a unique registrationCode is created and sent to the registered email. When the linked route is accessed by a logged in user, user.activated is set to "true" which should make an account active._
  
 **/auth/login - POST**
 req.body expects:
