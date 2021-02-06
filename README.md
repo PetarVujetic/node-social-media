@@ -4,6 +4,7 @@ It uses a mongodb database connected in the clouds.
 The authentication is implemented with a JSON Web Token (jwt).  
 
  # Routes:
+ _ __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
 ### '/auth' AuthController
  
 **/auth/register - POST**  
@@ -20,13 +21,13 @@ _Registeres a user. Upon registration a unique registrationCode is created and s
 req.body expects:
 - email
 - password  
-_Logging in a user_
+_Sets a cookie containing a jwt token which loggs in a user_
  
 **/auth/logout - GET**  
-_Destroys a token stored in the cookie_
+_Destroys a token stored in the cookie and loggs out a user_
 
 **/auth/me - GET**  
-_Returns a logged in user_  
+_Returns a logged in user object_  
 
  **auth/:activationCode - GET**  
  _Sets the user.activated to True (link for activation is sent to the registered email)_  
