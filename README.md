@@ -4,7 +4,7 @@ It uses a mongodb database connected in the clouds.
 The authentication is implemented with a JSON Web Token (jwt).  
 
 **Before you start**  
-Read the important commands and contact project leader for a .env file, without it you will not be able to use the cloud mongodb or a jwt.  
+Read the important commands and contact project leader for a .env file, without it you will not be able to use the cloud mongodb, jwt and email sending script.  
 
 **Important commands**  
 Before you run the project use the command to install node_modules: __npm install__  
@@ -16,7 +16,7 @@ Command for deployment: __npm start__
 
  ### '/auth'AuthController 
  <hr>  
- 
+
 **/auth/register - POST**  
 req.body expects:
 - name

@@ -1,6 +1,5 @@
 let express = require('express');
 let exphbs = require('express-handlebars');
-let dotenv = require("dotenv")
 let AuthController = require('./auth/AuthController');
 let UserController = require('./user/UserController');
 let db = require('./db');
