@@ -14,7 +14,7 @@ Command for deployment: __npm start__
  # Routes:
  __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
 
- ### <div style="text-align:center">'/auth' AuthController</div>
+ ###<div style="text-align:center">'/auth' AuthController </div> 
  
 **/auth/register - POST**  
 req.body expects:
