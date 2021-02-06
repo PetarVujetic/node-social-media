@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let User = require('../user/User');
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
+let crypto = require("crypto")
 let config = require('../config');
 let VerifyToken = require('./VerifyToken')
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -14,11 +15,8 @@ const nodemailer = require("nodemailer");
 
 router.post('/register', async function (req, res) {
 
-
-
   async function main(user) {
     let transporter = nodemailer.createTransport({
-
       host: "smtp-relay.sendinblue.com",
       port: 587,
       secure: false,
@@ -27,19 +25,19 @@ router.post('/register', async function (req, res) {
         pass: "rYbNfGh1JKsWtZE4",
       },
     });
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Vujo Hacker 👻" <97petar@live.com>', // sender address
       to: user.email, // list of receivers
       subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      text: `Activation link: http://localhost:8000/auth/${user.activationCode}`, // plain text body
+      html: `<b>Activation link: <a>http://localhost:8000/auth/${user.activationCode}</a></b>`, // html body
     });
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   }
 
-  // ENDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
   if (req.body.password != req.body.password2) return res.status(401).send("Passwords didn't match!")
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
   // let matchedEmail = await User.findOne({ email: req.body.email })
@@ -49,15 +47,17 @@ router.post('/register', async function (req, res) {
     email: req.body.email,
     password: hashedPassword
   },
-    function (err, user) {
+    async function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")
+      let activationCode = crypto.createHash("sha256").update(JSON.stringify(user._id)).digest("hex");
+      user.activationCode = activationCode
+      await user.save()
       main(user).catch(console.error);
       res.send(user)
     });
 });
 
 router.get('/me', VerifyToken, function (req, res, next) {
-
   User.findById(req.userId,
     { password: 0 }, // projection
     function (err, user) {
@@ -94,5 +94,18 @@ router.get('/logout', function (req, res) {
   res.status(200).send({ auth: false, token: null });
 
 });
+
+router.get('/:activationCode', VerifyToken, function (req, res) {
+  User.findById(req.userId,
+    async function (err, user) {
+      if (err) return res.status(500).send("There was a problem finding the user.");
+      if (!user) return res.status(404).send("No user found.");
+
+      user.activated = true
+      await user.save()
+      res.status(200).send("User successfully activated!");
+    });
+});
+
 
 module.exports = router;
