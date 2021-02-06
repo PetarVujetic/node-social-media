@@ -4,7 +4,7 @@ It uses a mongodb database connected in the clouds.
 The authentication is implemented with a JSON Web Token (jwt).  
 
  # Routes:
- _ __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
+ __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
 ### '/auth' AuthController
  
 **/auth/register - POST**  
