@@ -60,7 +60,7 @@ req.params Expects:
 - id (link to a selected user)  
 _Updates a selected user_
  
-**/users/create-status - POST**  
+**/users/create-post - POST**  
 req.body Expects:
 - text  
 _Creates a post for a logged in user_
