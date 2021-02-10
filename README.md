@@ -7,9 +7,12 @@ The authentication is implemented with a JSON Web Token (jwt).
 Read the important commands and contact project leader for a .env file, without it you will not be able to use the cloud mongodb, jwt and email sending script.  
 
 **Important commands**  
-Before you run the project use the command to install node_modules: __npm install__  
-To run the project on dev use the command: __npm run dev__   
-Command for deployment: __npm start__  
+Before you run the project use the command to install node_modules:  
+`npm install`  
+To run the project on dev use the command:   
+`npm run dev`     
+Command for deployment:    
+`npm start`  
 
  # Routes:
  __VerifyToken__ - every route that requires information of a logged in User must containt this script in the route (eg. "router.get('/me', VerifyToken, ...")  
