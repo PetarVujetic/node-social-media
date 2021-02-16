@@ -4,7 +4,7 @@ dotenv.config({ path: '../.env' })
 
 module.exports = async function sendActivationMail(user) {
   let transporter = nodemailer.createTransport({
-    host: "smtp-relay.sendinblue.com",
+    host: "smtp.gmail.com",
     port: 587,
     secure: false,
     auth: {
