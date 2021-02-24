@@ -12,13 +12,13 @@ router.use(bodyParser.json());
 let cookieParser = require('cookie-parser')
 router.use(cookieParser())
 let sendActivationMail = require('./SendActivationMail')
+let cacheTime;
 
 router.post('/register', async function (req, res) {
-
-  if (req.body.password != req.body.password2) return res.status(401).send("Passwords didn't match!")
+  if (cacheTime && cacheTime > Date.now() - 10 * 1000) return res.send("Wait a moment before registering again")
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
-  // let matchedEmail = await User.findOne({ email: req.body.email })
-  // if (matchedEmail) return res.status(401).send("Email is already registered to an account!")
+  let matchedEmail = await User.findOne({ email: req.body.email })
+  if (matchedEmail) return res.status(401).send("Email is already registered to an account!")
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -26,12 +26,14 @@ router.post('/register', async function (req, res) {
   },
     async function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")
-      let activationCode = crypto.createHash("sha256").update(JSON.stringify(user._id)).digest("hex");
+      let activationCode = crypto.createHash("sha256").update(JSON.stringify(user._id + "odecnoitavitca")).digest("hex");
       user.activationCode = activationCode
       await user.save()
       sendActivationMail(user).catch(console.error);
+      cacheTime = Date.now()
       res.send(user)
     });
+
 });
 
 router.get('/me', VerifyToken, function (req, res, next) {
