@@ -14,9 +14,9 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 //Routes
-app.use('api/auth', AuthController);
-app.use('api/users', UserController);
-app.use('api/posts', UserPostController);
+app.use('/api/auth', AuthController);
+app.use('/api/users', UserController);
+app.use('/api/posts', UserPostController);
 
 
 

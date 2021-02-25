@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let UserPostSchema = new mongoose.Schema({
   text: String,
   image: String,
-  user: String,
+  user: mongoose.ObjectId,
   date: Date
 });
 mongoose.model('UserPost', UserPostSchema);

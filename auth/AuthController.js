@@ -36,7 +36,7 @@ router.post('/register', async function (req, res) {
 
 });
 
-router.get('/me', VerifyToken, function (req, res, next) {
+router.get('/me', VerifyToken, function (req, res) {
   User.findById(req.userId,
     { password: 0 }, // projection
     function (err, user) {
