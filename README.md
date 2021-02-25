@@ -81,7 +81,7 @@ Model fields:
 - activationCode (generated after registration)
 - image (not required (default: 'default.png'))
 - description (not required)
-- posts (array of post model objects) 
+- posts (array of ObjectIds of a post model objects) 
 - followers (array of ObjectIds of a user model objects) _list of followers_
 - following (array of ObjectIds of a user model objects) _list of followees_  
 
