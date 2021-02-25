@@ -38,7 +38,7 @@ router.put('/:id', async function (req, res) {
 router.post('/follow-unfollow', VerifyToken, async function (req, res) {
   let followedUser = await User.findById(req.body.id)
   let user = await User.findById(req.userId)
-  if (!followedUser || !user) res.send("Error finding users")
+  if (!followedUser || !user) res.send("User identification error")
   if (user.following.includes(followedUser._id)) {
     user.following.splice(user.following.indexOf(followedUser._id), 1);
     followedUser.followers.splice(followedUser.followers.indexOf(user._id), 1);
