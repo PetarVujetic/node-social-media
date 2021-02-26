@@ -3,7 +3,9 @@ let UserPostSchema = new mongoose.Schema({
   text: String,
   image: String,
   user: mongoose.ObjectId,
-  date: Date
+  date: Date,
+  likes: Array,
+  comments: Array 
 });
 mongoose.model('UserPost', UserPostSchema);
 
